@@ -31,7 +31,13 @@ app.all('/send-email', async (req, res) => {
         from: process.env.MAIL_USERNAME,
         to: body.to.email,
         subject: `Wedding Invitation from ${body.names.bride} and ${body.names.groom}`,
-        text
+        text,
+        attachments: [
+            {
+                filename: `${body.names.bride}-and-${body.names.groom}-wedding-invite.jpg`,
+                path: body.invite
+            },
+        ]
     };
 
     transporter.sendMail(mailOptions, function (error, info) {

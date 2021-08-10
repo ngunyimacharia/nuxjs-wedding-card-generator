@@ -5,6 +5,7 @@
     </div>
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <Invite id="invite-container" />
         <form
           class="space-y-6"
           action="#"
@@ -76,6 +77,7 @@
           <div>
             <button
               type="submit"
+              :disabled="image == null"
               class="
                 w-full
                 flex
@@ -203,6 +205,7 @@ export default {
         email: "",
       },
       invitees: [],
+      image: null,
     };
   },
   computed: {
@@ -212,7 +215,31 @@ export default {
       address: "address",
     }),
   },
+  mounted() {
+    this.getImageURL();
+  },
   methods: {
+    getImageURL() {
+      const image = document.getElementById("invite-container");
+
+      if (image === null) {
+        setTimeout(() => {
+          this.getImageURL();
+        }, 1000);
+        return;
+      }
+
+      if (image.src) {
+        this.image = image.src;
+      }
+
+      if (this.image == null) {
+        setTimeout(() => {
+          this.getImageURL();
+        }, 1000);
+        return;
+      }
+    },
     async submit() {
       const submitData = {
         to: {
@@ -223,7 +250,7 @@ export default {
           bride: this.names.bride,
           groom: this.names.groom,
         },
-        invite: null,
+        invite: this.image,
       };
       const response = await fetch("/api/send-email", {
         method: "POST",
