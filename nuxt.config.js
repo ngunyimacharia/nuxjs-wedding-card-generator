@@ -42,6 +42,10 @@ export default {
   build: {
   },
 
+  serverMiddleware: [
+    { path: "/api", handler: "~/server-middleware/api.js" },
+  ],
+
   cloudinary: {
     cloudName: process.env.NUXT_ENV_CLOUDINARY_CLOUD_NAME,
     secure: true,

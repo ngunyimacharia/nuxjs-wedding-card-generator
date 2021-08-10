@@ -193,6 +193,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
@@ -203,8 +205,38 @@ export default {
       invitees: [],
     };
   },
+  computed: {
+    ...mapGetters({
+      names: "names",
+      date: "date",
+      address: "address",
+    }),
+  },
   methods: {
-    submit() {
+    async submit() {
+      const submitData = {
+        to: {
+          name: this.form.name,
+          email: this.form.email,
+        },
+        names: {
+          bride: this.names.bride,
+          groom: this.names.groom,
+        },
+        invite: null,
+      };
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(submitData),
+      });
+
+      let jsonResponse = response.json();
+
+      console.log(jsonResponse);
+
       this.invitees.push({
         name: this.form.name,
         email: this.form.email,
