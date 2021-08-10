@@ -1,7 +1,6 @@
 <template>
   <div class="w-full text-center">
     <div class="w-full p-10">
-      <!-- Front side of card  -->
       <cld-image
         public-id="nuxtjs-image-wedding-invitation/v722-aum-35a"
         crop="fill"
