@@ -10,7 +10,7 @@
       >
         <!-- Bride Name -->
         <cld-transformation
-          overlay="text:Sacramento_600_normal:Sarah,co_rgb:000000"
+          :overlay="`text:Sacramento_600_normal:${names.bride},co_rgb:000000`"
           gravity="center"
           y="-1900"
         />
@@ -24,7 +24,7 @@
 
         <!-- Husband Name -->
         <cld-transformation
-          overlay="text:Sacramento_600_normal:John,co_rgb:000000"
+          :overlay="`text:Sacramento_600_normal:${names.groom},co_rgb:000000`"
           gravity="center"
           y="-700"
         />
@@ -43,46 +43,46 @@
 
         <!-- Day -->
         <cld-transformation
-          overlay="text:Roboto_100_normal:SATURDAY,co_rgb:000000"
+          :overlay="`text:Roboto_100_normal:${date.day},co_rgb:000000`"
           y="800"
           x="-600"
         />
 
         <!-- Month -->
         <cld-transformation
-          overlay="text:Roboto_100_normal:AUG,co_rgb:000000"
+          :overlay="`text:Roboto_100_normal:${date.month},co_rgb:000000`"
           gravity="center"
           y="500"
         />
 
         <!-- Date -->
         <cld-transformation
-          overlay="text:Roboto_100_normal:2022,co_rgb:000000"
+          :overlay="`text:Roboto_100_normal:${date.year},co_rgb:000000`"
           gravity="center"
           y="1100"
         />
 
         <!-- Year -->
         <cld-transformation
-          overlay="text:Roboto_400_normal:17,co_rgb:000000"
+          :overlay="`text:Roboto_400_normal:${date.date},co_rgb:000000`"
           gravity="center"
           y="800"
         />
 
         <!-- Time -->
         <cld-transformation
-          overlay="text:Roboto_100_normal:AT 4 PM,co_rgb:000000"
+          :overlay="`text:Roboto_100_normal:AT ${date.time},co_rgb:000000`"
           y="800"
           x="500"
         />
 
         <!-- Location  -->
         <cld-transformation
-          overlay="text:Roboto_100_normal:LONG ISLAND's . NORTH SHORE,co_rgb:000000"
+          :overlay="`text:Roboto_100_normal:${address.first},co_rgb:000000`"
           y="1500"
         />
         <cld-transformation
-          overlay="text:Roboto_100_normal:50 BELLROSE RD . SOUND BEACH . NY,co_rgb:000000"
+          :overlay="`text:Roboto_100_normal:${address.second},co_rgb:000000`"
           y="1700"
         />
 
@@ -100,14 +100,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   computed: {
-    verticleLineUrl() {
-      return "https://cloudinary.nuxtjs.org/logo-light.svg";
-      return this.$cloudinary.image.url(
-        "nuxtjs-image-wedding-invitation/icons8-vertical-line-80"
-      );
-    },
+    ...mapGetters({
+      names: "names",
+      date: "date",
+      address: "address",
+    }),
   },
 };
 </script>
